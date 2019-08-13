@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model IEnumerable<InventoryProject.Models.Employee>
+
+    <body background="https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" >
+        <div>
+            <p style="text-align:center; font-size:40px">Welcome! This project has been designed as a 2 in 1. You are encouraged to explore both paths.</p><br />
+            <button type="button" style="width:45%;border-radius:15px;padding:64px 32px;font-size:64px;background:none"
+                    data-target="#EmployeeLoginModal" data-toggle="modal">Employees<br />(Back End)</button>
+            <button type="button" style="width:45%;border-radius:15px;padding:64px 32px;font-size:64px;background:none" 
+                    onclick="location.href='@Url.Action("StoreFront", "Items")'">Customers<br />(Front End)</button>
+            <br />
+        </div>
+
+        <div id="EmployeeLoginModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Employee Sign In</h4>
+                        <p>Use "Tester" to sign in.</p>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("SearchForEmployee", "Employees"))
+                        {
+                        <div class="form-actions no-color">
+                            <input type="text" name="name" value="" />
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            <input type="submit" name="submit" value="Submit" />
+                        </div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @{ var input1 = Request.Form["name"];
+        }
+
+        <div style="background-color:white">
+            @Html.ValidationSummary(false, "", new { @class="text-danger"})
+        </div>
+    </body>

@@ -1,0 +1,69 @@
+﻿@model InventoryProject.ViewModels.ItemCustomerReview
+
+@{
+    ViewBag.Title = "ItemReviews";
+}
+
+@{ Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";}
+
+    <html>
+    <body>
+
+
+
+        <div class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container" style="padding-top:15px">
+                <button type="button" onclick="location.href='@Url.Action("StoreFront","Items")'">&lt&lt Back to Inventory</button>
+
+                @if (Model.currentCustomer.FirstName == "Anonymous")
+                {
+                    <div id="login" class="login-container nav navbar-right">
+                        @using (Html.BeginForm("CustomerSignIn", "Customers"))
+                        {
+                            <div class="form-actions">
+                                <input type="text" name="name" value="" />
+                                <input type="submit" name="signin" value="Sign In" />
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div style="color:#808080" class="navbar-right">
+                        <p>Currently signed in as: @Model.currentCustomer.FirstName | @Html.ActionLink("Sign out", "StoreFront", "Items")</p>
+                    </div>
+                }
+            </div>
+        </div>
+        <h3 style="text-align:center">
+            Showing Reviews for : @Html.DisplayFor(model => model.Item.Name)
+        </h3>
+        @if (Model.currentCustomer.FirstName != "Anonymous")
+        {
+            <p>@Html.ActionLink("Write a review", "Add", new { currentCustomer = Model.currentCustomer.FirstName, itemId = Model.Item.Id, itemName = Model.Item.Name })</p>
+        }
+        else
+        {
+            <button type="button" disabled="true">Sign in to write a review</button>
+        }
+        <p> </p>
+        @if (Model.Reviews.Count() == 0)
+        {
+            <h3 style="text-align:center">No reviews for this item have been written yet. Be the first to write a review!</h3>
+        }
+        else
+        {
+            foreach (var item in Model.Reviews)
+            {
+                <div style="border:ridge">
+                    <p class="col-sm-6"><b>Author:</b> @Html.DisplayFor(modelItem => item.Author)</p>
+                    <p class="col-sm-6"><b>Date:</b> @Html.DisplayFor(modelItem => item.Date)</p>
+                    <p style="margin-left:12px"><b>Review:</b> @Html.DisplayFor(modelItem => item.Content)</p>
+                </div>
+                <br />
+            }
+        }
+
+    </body>
+    </html>
+

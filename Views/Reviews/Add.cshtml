@@ -1,0 +1,69 @@
+﻿@model InventoryProject.Models.Review
+
+@{
+    ViewBag.Title = "Add";
+}
+
+
+<h2>Add</h2>
+
+@using (Html.BeginForm("Add","Reviews")) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Review</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="padding-top:6px;">
+                @Html.EditorFor(model => model.ItemId, new { htmlAttributes = new { @class = "form-control", @Value = Model.ItemId, @readonly="readonly" } })
+                @Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="padding-top:6px;">
+                @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control", @Value = Model.ItemName, @readonly="readonly" } })
+                @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="padding-top:6px;">
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control",@Value=Model.Author, @readonly="readonly" } })
+                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="padding-top:6px;">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @Value=Model.Date, @readonly="readonly" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    
+    @Html.ActionLink("Back", "ItemReviews", new { itemId = Model.ItemId, customer = Model.Author })
+</div>

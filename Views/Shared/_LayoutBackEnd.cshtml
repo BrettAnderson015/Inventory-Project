@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<style>
+    .dropA{position:relative;}
+    .dropA:hover > .dropB{display:block;}
+    .dropA::after{
+        content:"\25BC";
+        font-size:.5em;
+        color:white;
+        display:block;
+        position:absolute;
+        top:43%;
+        right:1%;
+    }
+    .dropB{position:absolute; display:none; width:150px}
+        .dropB li {
+            border-bottom: 1px solid;
+            color: #808080;
+            background-color:black;
+        }
+
+        
+</style>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Inventory", "Index", "Items")</li>
+                        <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+                        <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+                        <li>@Html.ActionLink("Reviews", "Index", "Reviews")</li>
+                        <li class="dropA"><a href="#">Reports</a>
+                            <ul class="dropB nav navbar-nav">
+                                <li>@Html.ActionLink("Item Report", "ItemReviewCountReport", "Items")</li>
+                                <li>@Html.ActionLink("Customer Report", "CustomerReviewCountReport", "Customers")</li>
+                            </ul>
+                        </li>
+                    </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
